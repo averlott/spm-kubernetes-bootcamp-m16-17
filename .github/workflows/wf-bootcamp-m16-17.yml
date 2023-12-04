@@ -25,7 +25,7 @@ jobs:
       
       - name: Contruir imagen docker a partir de dockerfile
         run:
-          docker build -t ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_${{github.run_number}} -f ./Docker/Dockerfile
+          docker build . -t ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_${{github.run_number}} -f ./Docker/Dockerfile
       
       - name: Ejecutar contenedor con la imagen docker creada anteriormente
         run:
