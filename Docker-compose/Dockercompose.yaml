@@ -1,0 +1,13 @@
+version: '3.7'
+services:
+  spm-openjdk-bootcamp-m16-17:
+    # setea el nombre de la imagen a constuir
+    image: spm-openjdk-bootcamp-m14:docker_compose_m16_17
+    # setea el path del archivo dockerfile para construir la imagen
+    build:
+      dockerfile: ../Docker/Dockerfile
+    # setea el nombre del contenedor a crear
+    container_name: spm-openjdk-bootcamp-m14-docker_compose_m16_17
+    # setea el puerto del host y el puerto del contenedor que lo expone
+    ports:
+      - "8001:3456/tcp"
