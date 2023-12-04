@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: use env var
-        run: echo ${{Docker_ContainerName}}
+        run: echo ${{env.Docker_ContainerName}}
         
       - name: Checkout codigo del repositorio
         uses: actions/checkout@v3
