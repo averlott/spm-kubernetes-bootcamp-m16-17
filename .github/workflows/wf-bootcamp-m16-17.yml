@@ -10,8 +10,8 @@ env:
   DockerHub_UserName: ${{ secrets.DOCKERHUB_USERNAME }}
   DockerHub_Password: ${{ secrets.DOCKERHUB_TOKEN }}
   DockerHub_RepoName: spm-openjdk-bootcamp-m14
-  DockerHub_TagName: github-m16-17
-  Docker_ContainerName: ${DockerHub_RepoName}-m16-m17
+  DockerHub_TagName: github_m16-17
+  Docker_ContainerName: ${DockerHub_RepoName}_m16-m17
   Application_Original_Port: 3456
   Application_Expose_Port: 8001
 
@@ -19,9 +19,18 @@ jobs:
   bootcamp-m16-17-job:
     runs-on: ubuntu-latest
     steps:
-      - name: use env var
-        run: echo ${{env.Docker_ContainerName}}
-        
+    
+      #- name: use env var
+      #  run: echo ${{env.Docker_ContainerName}}
+      
+      - name: Contruir imagen docker a partir de dockerfile
+        run:
+          docker build . -t ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_${{github.run_number}} -f Docker/Dockerfile
+      
+      - name: Ejecutar contenedor con la imagen docker creada anteriormente
+        run:
+          docker run -d --name ${{env.Docker_ContainerName}} -p ${{env.Application_Expose_Port}}:${{env.Application_Original_Port}} ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_${{github.run_number}}
+      
       - name: Checkout codigo del repositorio
         uses: actions/checkout@v3
 
