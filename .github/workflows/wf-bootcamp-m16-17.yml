@@ -55,7 +55,8 @@ jobs:
           docker exec ${{env.Docker_ContainerName}} ls -a
           docker inspect ${{env.Docker_ContainerName}}
           docker network inspect bridge --format='{{( index .IPAM.Config 0).Gateway}}'
-          docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' d_dockerhost_1
+          ufw allow from 172.17.0.1 proto tcp to any port 8001
+          ufw allow from 172.17.0.1 proto tcp to any port 3456
           #docker exec ${{env.Docker_ContainerName}} curl 172.17.0.1:8001
           
       - name: Login en dockerhub
