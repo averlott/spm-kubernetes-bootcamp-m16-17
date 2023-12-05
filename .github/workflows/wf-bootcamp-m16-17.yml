@@ -11,7 +11,8 @@ env:
   DockerHub_Password: ${{ secrets.DOCKERHUB_TOKEN }}
   DockerHub_RepoName: spm-openjdk-bootcamp-m14
   DockerHub_TagName: github_m16-17
-  Docker_ContainerName: ${DockerHub_RepoName}_m16-m17
+  Docker_ContainerName: $DockerHub_RepoName
+  Docker_ContainerTag: m16-17
   Application_Original_Port: 3456
   Application_Expose_Port: 8001
 
@@ -32,7 +33,7 @@ jobs:
       
       - name: Ejecutar contenedor con la imagen docker creada anteriormente
         run:
-          docker run -d --name ${{env.Docker_ContainerName}} -p ${{env.Application_Expose_Port}}:${{env.Application_Original_Port}} ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_${{github.run_number}}
+          docker run -d --name ${{env.Docker_ContainerName}}_${{env.Docker_ContainerTag}} -p ${{env.Application_Expose_Port}}:${{env.Application_Original_Port}} ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_${{github.run_number}}
 
       - name: Login en dockerhub
         uses: docker/login-action@v3
