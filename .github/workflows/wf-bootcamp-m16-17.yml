@@ -22,7 +22,7 @@ jobs:
     
       - name: Concatena variables para reutilizar las existentes y crear otras
         run: |
-          echo "Docker_ContainerName=${{env.DockerHub_RepoName}}_${{Docker_ContainerTag}}" >> $GITHUB_ENV
+          echo "Docker_ContainerName=${{env.DockerHub_RepoName}}_${{env.Docker_ContainerTag}}" >> $GITHUB_ENV
       
       - name: Checkout codigo del repositorio
         uses: actions/checkout@v3
