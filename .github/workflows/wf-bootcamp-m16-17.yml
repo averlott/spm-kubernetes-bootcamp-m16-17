@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - "Docker/**"
+      - "Docker-compose/**"
 env:
   DockerHub_UserName: ${{ secrets.DOCKERHUB_USERNAME }}
   DockerHub_Password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -26,7 +27,16 @@ jobs:
       
       - name: Checkout codigo del repositorio
         uses: actions/checkout@v3
-        
+
+      - name: Aplicar lint sobre el archivo dockerfile usando hadolint
+        uses: hadolint/hadolint-action@v3.0.0
+        with:
+          dockerfile: ./docker/Dockerfile
+          failure-threshold: error
+
+      - name: Imprimir resultados del lint realizado con hadolint
+        run: echo 'HADOLINT LINT RESULTS => ${{ env.HADOLINT_RESULTS }}'
+  
       - name: Contruir imagen docker a partir de dockerfile
         run:
           docker build . -t ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_${{github.run_number}} 
