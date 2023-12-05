@@ -11,7 +11,7 @@ env:
   DockerHub_Password: ${{ secrets.DOCKERHUB_TOKEN }}
   DockerHub_RepoName: spm-openjdk-bootcamp-m14
   DockerHub_TagName: github_m16-17
-  Docker_ContainerName: ${{DockerHub_RepoName}}_m16-m17
+  Docker_ContainerName: ${DockerHub_RepoName}_m16-m17
   Application_Original_Port: 3456
   Application_Expose_Port: 8001
 
@@ -20,8 +20,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     
-      #- name: use env var
-      #  run: echo ${{env.Docker_ContainerName}}
+      - name: use env var
+        run: echo ${{env.Docker_ContainerName}}
       
       - name: Checkout codigo del repositorio
         uses: actions/checkout@v3
