@@ -53,7 +53,7 @@ jobs:
         run: |
           docker ps -a
           docker exec ${{env.Docker_ContainerName}} ls -a
-          docker exec ${{env.Docker_ContainerName}} curl 0.0.0.0:8001
+          docker exec ${{env.Docker_ContainerName}} curl 0.0.0.0:3456
           
       - name: Login en dockerhub
         uses: docker/login-action@v3
