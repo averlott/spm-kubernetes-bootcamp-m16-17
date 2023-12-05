@@ -53,6 +53,7 @@ jobs:
         run: |
           docker ps -a
           docker exec ${{env.Docker_ContainerName}} ls -a
+          docker inspect ${{env.Docker_ContainerName}}
           #docker exec ${{env.Docker_ContainerName}} curl 0.0.0.0:3456
           
       - name: Login en dockerhub
