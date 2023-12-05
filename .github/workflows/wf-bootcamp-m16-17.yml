@@ -54,9 +54,7 @@ jobs:
           
       - name: Docker Test
         run: |
-          #docker run --rm --name rulesdecision-test -d rulesdecision
-          #sleep 5
-          STATUS_CODE=$(docker exec "%{env.Docker_ContainerName}" curl -s -o /dev/null -w "%{http_code}" localhost:8080/health)
+          STATUS_CODE=$(docker exec spm-openjdk-bootcamp-m14_m16-17 curl -s -o /dev/null -w "%{http_code}" localhost:8080/health)
           docker ${{env.Docker_ContainerName}}
           echo $STATUS_CODE | grep -q 200
           
