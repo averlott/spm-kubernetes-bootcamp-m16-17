@@ -35,7 +35,8 @@ jobs:
           failure-threshold: error
 
       - name: Imprimir resultado del lint realizado con hadolint
-        run: echo 'Resultado lint realizado con hadolint => ${{ env.HADOLINT_RESULTS }}'
+        run: |
+          echo "Resultado lint realizado con hadolint: ${{ env.HADOLINT_RESULTS }}"
   
       - name: Contruir imagen docker a partir de dockerfile
         run:
@@ -44,7 +45,7 @@ jobs:
       
       - name: Ejecutar contenedor con la imagen docker creada anteriormente
         run:
-          docker run -d --name ${{env.Docker_ContainerName}} -p ${{env.Application_Expose_Port}}:${{env.Application_Original_Port}} 
+          docker run --name ${{env.Docker_ContainerName}} -p ${{env.Application_Expose_Port}}:${{env.Application_Original_Port}} 
           ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_${{github.run_number}}
           
       - name: Test de la aplicacion dockerizada y ejecutada en el contenedor
