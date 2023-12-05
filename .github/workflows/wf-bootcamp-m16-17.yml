@@ -11,7 +11,6 @@ env:
   DockerHub_Password: ${{ secrets.DOCKERHUB_TOKEN }}
   DockerHub_RepoName: spm-openjdk-bootcamp-m14
   DockerHub_TagName: github_m16-17
-  Docker_ContainerName: $DockerHub_RepoName
   Docker_ContainerTag: m16-17
   Application_Original_Port: 3456
   Application_Expose_Port: 8001
@@ -21,19 +20,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     
-      - name: use env var
-        run: echo ${{env.Docker_ContainerName}}
+      - name: Concatena variables para reutilizar las existentes y crear otras
+        run: |
+          echo "Docker_ContainerName=${{env.DockerHub_RepoName}}_${{Docker_ContainerTag}}" >> $GITHUB_ENV
       
       - name: Checkout codigo del repositorio
         uses: actions/checkout@v3
         
       - name: Contruir imagen docker a partir de dockerfile
         run:
-          docker build . -t ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_${{github.run_number}} -f Docker/Dockerfile
+          docker build . -t ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_${{github.run_number}} 
+          -f Docker/Dockerfile
       
       - name: Ejecutar contenedor con la imagen docker creada anteriormente
         run:
-          docker run -d --name ${{env.Docker_ContainerName}}_${{env.Docker_ContainerTag}} -p ${{env.Application_Expose_Port}}:${{env.Application_Original_Port}} ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_${{github.run_number}}
+          docker run -d --name ${{env.Docker_ContainerName}} -p ${{env.Application_Expose_Port}}:${{env.Application_Original_Port}} 
+          ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_${{github.run_number}}
 
       - name: Login en dockerhub
         uses: docker/login-action@v3
