@@ -52,8 +52,8 @@ jobs:
         run: |
           docker ps -a
           docker exec ${{env.Docker_ContainerName}} ls -a
-          docker inspect -f "{{ .NetworkSettings.IPAddress }}" ${{env.Docker_ContainerName}}
-          echo "Docker_Internal_Host=$(docker inspect -f '{{ .NetworkSettings.IPAddress }}')" >> $GITHUB_ENV
+          docker inspect -f "{{ .NetworkSettings.Gateway }}" ${{env.Docker_ContainerName}}
+          echo 'Docker_Internal_Host=$(docker inspect -f "{{ .NetworkSettings.IPAddress }}")' >> $GITHUB_ENV
           echo ${{env.Docker_Internal_Host}}
           docker exec ${{env.Docker_ContainerName}} curl 172.17.0.1:8001
           
