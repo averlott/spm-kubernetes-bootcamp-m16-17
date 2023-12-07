@@ -40,13 +40,13 @@ jobs:
   
       - name: Construir imagen docker a partir de dockerfile
         run:
-          docker build . -t ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_51 
+          docker build . -t ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_${{github.run_number}}
           -f Docker/Dockerfile
       
       - name: Ejecutar contenedor con la imagen docker creada anteriormente
         run:
           docker run -d --name ${{env.Docker_ContainerName}} -p ${{env.Application_Expose_Port}}:${{env.Application_Original_Port}}
-          ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_51
+          ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_${{github.run_number}}
           
       - name: Test de la aplicacion dockerizada y ejecutada en el contenedor
         run: |
@@ -62,4 +62,4 @@ jobs:
           
       - name: Push en dockerhub con la imagen docker creada anteriormente
         run:
-          docker push ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_51
+          docker push ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_${{github.run_number}}
