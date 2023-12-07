@@ -59,7 +59,7 @@ jobs:
           #sudo ufw allow from 172.17.0.1 proto tcp to any port 3456
           #sudo ufw allow from 172.17.0.2 proto tcp to any port 8001
           #sudo ufw allow from 172.17.0.2 proto tcp to any port 3456
-          #docker exec -i ${{env.Docker_ContainerName}} curl 172.17.0.2:3456
+          #docker exec -i ${{env.Docker_ContainerName}} curl 172.17.0.1:3456
           docker exec -i ${{env.Docker_ContainerName}} curl -I 0.0.0.0:3456
           
       - name: Login en dockerhub
