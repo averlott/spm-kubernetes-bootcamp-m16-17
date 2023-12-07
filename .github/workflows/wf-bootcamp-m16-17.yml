@@ -57,9 +57,10 @@ jobs:
           #docker network inspect bridge --format='{{( index .IPAM.Config 0).Gateway}}'
           #sudo ufw allow from 172.17.0.1 proto tcp to any port 8001
           #sudo ufw allow from 172.17.0.1 proto tcp to any port 3456
-          sudo ufw allow from 172.17.0.2 proto tcp to any port 8001
-          sudo ufw allow from 172.17.0.2 proto tcp to any port 3456
-          docker exec -i ${{env.Docker_ContainerName}} curl 172.17.0.2:3456
+          #sudo ufw allow from 172.17.0.2 proto tcp to any port 8001
+          #sudo ufw allow from 172.17.0.2 proto tcp to any port 3456
+          #docker exec -i ${{env.Docker_ContainerName}} curl 172.17.0.2:3456
+          docker exec -i ${{env.Docker_ContainerName}} client curl -I 0.0.0.0:8001
           
       - name: Login en dockerhub
         uses: docker/login-action@v3
