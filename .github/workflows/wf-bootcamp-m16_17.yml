@@ -45,14 +45,14 @@ jobs:
       
       - name: Ejecutar contenedor con la imagen docker creada anteriormente
         run:
-          docker run -d --name ${{env.Docker_ContainerName}} -p ${{env.Application_Expose_Port}}:${{env.Application_Original_Port}}
+          docker run -d --name ${{env.Docker_ContainerName}} -p 127.0.0.1:${{env.Application_Expose_Port}}:${{env.Application_Original_Port}}
           ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_${{github.run_number}}
           
       - name: Test de la aplicacion dockerizada y ejecutada en el contenedor
         run: |
           docker ps -a
           docker exec ${{env.Docker_ContainerName}} ls -a
-          docker exec ${{env.Docker_ContainerName}} ifconfig
+          docker exec ${{env.Docker_ContainerName}} curl 127.0.0.1:8001
           
       - name: Login en dockerhub
         uses: docker/login-action@v3
