@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "spm-openjdk.fullname" . }}-svc
+  labels:
+    app: spm-openjdk
+  {{- include "spm-openjdk.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.svc.type }}
+  selector:
+    app: spm-openjdk
+  {{- include "spm-openjdk.selectorLabels" . | nindent 4 }} 
+  ports:
+    - protocol: TCP
+      port: {{ .Values.svc.ports.port }}
+      targetPort: {{ .Values.svc.ports.targetPort }}
+      nodePort: {{ .Values.svc.ports.nodePort }}

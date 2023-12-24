@@ -1,0 +1,15 @@
+deploy:
+  replicas: 3
+  spmOpenjdkK8SBootcampDevopsM1617:
+    image:
+      repository: averlott/spm-openjdk-bootcamp-m14
+      tag: github_10
+    imagePullPolicy: IfNotPresent
+kubernetesClusterDomain: cluster.local
+svc:
+  type: NodePort
+  ports:
+    protocol: TCP
+    port: 8001
+    targetPort: 3456
+    nodePort: 30002

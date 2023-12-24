@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: spm-openjdk-deploy
+  namespace: k8s-bootcamp-devops-m16-17
+  labels:
+    app: spm-openjdk
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: spm-openjdk
+  strategy: 
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: spm-openjdk
+    spec:
+      containers:
+      - name: spm-openjdk-k8s-bootcamp-devops-m16-17
+        #image: averlott/spm-openjdk-bootcamp-m14:1.0
+        image: averlott/spm-openjdk-bootcamp-m14:github_10
+        imagePullPolicy: IfNotPresent
+        #ports:
+        #- containerPort: 8001

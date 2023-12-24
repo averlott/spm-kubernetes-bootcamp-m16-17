@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "spm-openjdk.fullname" . }}-deploy
+  labels:
+    app: spm-openjdk
+  {{- include "spm-openjdk.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.deploy.replicas }}
+  selector:
+    matchLabels:
+      app: spm-openjdk
+    {{- include "spm-openjdk.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        app: spm-openjdk
+      {{- include "spm-openjdk.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+      - env:
+        - name: KUBERNETES_CLUSTER_DOMAIN
+          value: {{ quote .Values.kubernetesClusterDomain }}
+        image: {{ .Values.deploy.spmOpenjdkK8SBootcampDevopsM1617.image.repository }}:{{
+          .Values.deploy.spmOpenjdkK8SBootcampDevopsM1617.image.tag | default .Chart.AppVersion
+          }}
+        imagePullPolicy: {{ .Values.deploy.spmOpenjdkK8SBootcampDevopsM1617.imagePullPolicy
+          }}
+        name: spm-openjdk-k8s-bootcamp-devops-m16-17
+        resources: {}

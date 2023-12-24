@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: spm-openjdk-svc
+  namespace: k8s-bootcamp-devops-m16-17
+  labels:
+    app: spm-openjdk
+spec:
+  type: NodePort
+  selector:
+    app: spm-openjdk
+  ports:
+    - protocol: TCP
+      port: 8001
+      targetPort: 3456
+      #es opcional y si lo dejamos sin especificar sera asignado por default en un rango que va desde 30000-32767.
+      nodePort: 30001
