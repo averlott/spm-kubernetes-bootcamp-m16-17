@@ -37,4 +37,9 @@ jobs:
       - uses: addnab/docker-run-action@v3
         with:
           image: ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_51
-          run: echo "hello world"
+          run: ls -la
+
+      - uses: addnab/docker-run-action@v3
+        with:
+          image: ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_51
+          run: curl localhost:3456
