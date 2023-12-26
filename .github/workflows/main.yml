@@ -42,4 +42,7 @@ jobs:
       - uses: addnab/docker-run-action@v3
         with:
           image: ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_51
-          run: curl localhost:8001
+          shell: bash
+          run: |
+            echo "first line"
+            curl localhost:3456
