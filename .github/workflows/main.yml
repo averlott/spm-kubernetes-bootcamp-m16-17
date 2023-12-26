@@ -31,9 +31,16 @@ jobs:
       - uses: docker/build-push-action@v2
         with:
           file: Docker/Dockerfile
+          name: ${{env.Docker_ContainerName}}
           build-args: -p ${{env.Application_Expose_Port}}:${{env.Application_Original_Port}}
           tags: ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_51
           push: false
+          
+      - name: Test de la aplicacion dockerizada y ejecutada en el contenedor
+        run: |
+          docker ps -a
+          docker exec ${{env.Docker_ContainerName}} ls -a
+          docker exec ${{env.Docker_ContainerName}} curl 172.17.0.1:8001
           
       - uses: addnab/docker-run-action@v3
         with:
