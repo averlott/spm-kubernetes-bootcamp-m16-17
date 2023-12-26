@@ -21,34 +21,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     
-      - name: Concatena variables para reutilizar las existentes y crear otras
-        run: |
-          echo "Docker_ContainerName=${{env.DockerHub_RepoName}}_${{env.Docker_ContainerTag}}" >> $GITHUB_ENV
-          
-      - name: Checkout codigo del repositorio
-        uses: actions/checkout@v3
-        
-      - uses: docker/build-push-action@v2
-        with:
-          file: Docker/Dockerfile
-          name: ${{env.Docker_ContainerName}}
-          build-args: -p ${{env.Application_Expose_Port}}:${{env.Application_Original_Port}}
-          tags: ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_51
-          push: false
-          
-      - name: Test de la aplicacion dockerizada y ejecutada en el contenedor
-        run: |
-          docker ps -a
-          
-      - uses: addnab/docker-run-action@v3
-        with:
-          image: ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_51
-          run: curl "localhost:8001"
-
-      - uses: addnab/docker-run-action@v3
-        with:
-          image: ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_51
-          shell: bash
-          run: |
-            echo "first line"
-            curl localhost:8001
+    - uses: actions/checkout@v3
+    - uses: adambirds/docker-compose-action@v1.3.0
+      with:
+        compose-file: "./Docker-compose/Dockercompose.yaml"
+        services: |
+          spm-openjdk-bootcamp-m16-17
+        test-container: helloworld
+        test-command: "curl localhost:3456"
