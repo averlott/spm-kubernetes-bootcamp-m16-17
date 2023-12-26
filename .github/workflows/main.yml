@@ -27,5 +27,4 @@ jobs:
         compose-file: "./Docker-compose/Dockercompose.yaml"
         services: |
           spm-openjdk-bootcamp-m16-17
-        test-container: helloworld
         test-command: "ls -la"
