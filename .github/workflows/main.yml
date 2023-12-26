@@ -31,13 +31,14 @@ jobs:
       - uses: docker/build-push-action@v2
         with:
           file: Docker/Dockerfile
+          build-args: -p ${{env.Application_Expose_Port}}:${{env.Application_Original_Port}}
           tags: ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_51
           push: false
           
       - uses: addnab/docker-run-action@v3
         with:
           image: ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_51
-          run: ip a
+          run: curl "localhost:3456"
 
       - uses: addnab/docker-run-action@v3
         with:
