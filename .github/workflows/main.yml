@@ -39,8 +39,6 @@ jobs:
       - name: Test de la aplicacion dockerizada y ejecutada en el contenedor
         run: |
           docker ps -a
-          docker exec ${{env.Docker_ContainerName}} ls -a
-          docker exec ${{env.Docker_ContainerName}} curl 172.17.0.1:8001
           
       - uses: addnab/docker-run-action@v3
         with:
