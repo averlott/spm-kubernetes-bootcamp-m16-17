@@ -28,4 +28,4 @@ jobs:
         services: |
           spm-openjdk-bootcamp-m16-17
         test-container: helloworld
-        test-command: ls -la
+        test-command: "ls -la"
