@@ -37,7 +37,7 @@ jobs:
       - uses: addnab/docker-run-action@v3
         with:
           image: ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_51
-          run: ls -la
+          run: ip a
 
       - uses: addnab/docker-run-action@v3
         with:
@@ -45,4 +45,4 @@ jobs:
           shell: bash
           run: |
             echo "first line"
-            curl localhost:3456
+            curl localhost:8001
