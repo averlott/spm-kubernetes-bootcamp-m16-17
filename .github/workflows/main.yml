@@ -26,5 +26,5 @@ jobs:
       with:
         compose-file: "./Docker-compose/Dockercompose.yaml"
     - name: Test
-      run: docker run --network container:spm-openjdk-bootcamp-m14-docker_compose_m16_17 appropriate/curl --retry 10 --retry-connrefused http://localhost:3456/healthcheck
+      run: docker run --network container:spm-openjdk-bootcamp-m14-docker_compose_m16_17 appropriate/curl --retry 10 --retry-connrefused http://localhost:3456
 
