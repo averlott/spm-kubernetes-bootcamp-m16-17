@@ -23,6 +23,6 @@ jobs:
     
       - uses: actions/checkout@v2
       - name: Build the stack
-        run: docker-compose up -d -f ../Docker-Compose/Dockercompose.yaml
+        run: docker-compose -d -f ../Docker-Compose/Dockercompose.yaml up
       - name: Test
         run: docker run --network container:spm-openjdk-bootcamp-m14-docker_compose_m16_17 appropriate/curl -s --retry 10 --retry-connrefused http://localhost:8001/
