@@ -51,12 +51,12 @@ jobs:
         run:
           docker run --network container:${{env.Docker_ContainerName}} appropriate/curl --retry 10 --retry-connrefused http://localhost:3456/
 
-      - name: Login en dockerhub
-        uses: docker/login-action@v3
-        with:
-          username: ${{env.DockerHub_UserName}}
-          password: ${{env.DockerHub_Password}}
+      #- name: Login en dockerhub
+      #  uses: docker/login-action@v3
+      #  with:
+      #    username: ${{env.DockerHub_UserName}}
+      #    password: ${{env.DockerHub_Password}}
           
-      - name: Push en dockerhub con la imagen docker creada anteriormente
-        run:
-          docker push ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_51
+      #- name: Push en dockerhub con la imagen docker creada anteriormente
+      #  run:
+      #    docker push ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_51
