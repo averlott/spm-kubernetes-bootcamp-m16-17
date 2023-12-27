@@ -33,7 +33,10 @@ jobs:
           docker build . -t ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_51
           -f Docker/Dockerfile
           
+      - name: Ejecutar contenedor con la imagen docker creada anteriormente
+        run:
+          docker run -d --name ${{env.Docker_ContainerName}} ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_51
+          
       - name: Start the service and perform healthcheck
         run: |
-          docker run -d --name ${{env.Docker_ContainerName}} -p ${{env.Application_Expose_Port}}:${{env.Application_Original_Port}} ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_51     
           docker run --network container:${{env.Docker_ContainerName}} appropriate/curl --retry 10 --retry-connrefused http://localhost:3456/
