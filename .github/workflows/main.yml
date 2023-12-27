@@ -60,3 +60,8 @@ jobs:
       - name: Push en dockerhub con la imagen docker creada anteriormente
         run:
           docker push ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_51
+
+      - name: Prueba
+        run: |
+          docker images -a
+          docker ps -a
