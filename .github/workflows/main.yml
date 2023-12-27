@@ -21,8 +21,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     
-      - uses: actions/checkout@v2
-      - name: Build the stack
-        run: docker-compose -f Docker-Compose/Dockercompose.yaml up -d
-      - name: Test
-        run: docker run --network container:spm-openjdk-bootcamp-m14-docker_compose_m16_17 appropriate/curl -s --retry 10 --retry-connrefused http://localhost:8001/
+    - uses: actions/checkout@v3
+    - uses: adambirds/docker-compose-action@v1.3.0
+      with:
+        compose-file: "./Docker-compose/Dockercompose.yaml"
+    - name: Test
+      run: docker run --network container:spm-openjdk-bootcamp-m14-docker_compose_m16_17 appropriate/curl -s --retry 10 --retry-connrefused http://localhost:8001/
