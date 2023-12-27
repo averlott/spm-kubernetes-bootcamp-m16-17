@@ -28,6 +28,16 @@ jobs:
       - name: Checkout codigo del repositorio
         uses: actions/checkout@v3
 
+      - name: Aplicar lint sobre el archivo dockerfile usando hadolint
+        uses: hadolint/hadolint-action@v3.0.0
+        with:
+          dockerfile: ./Docker/Dockerfile
+          failure-threshold: error
+
+      - name: Imprimir resultado del lint realizado con hadolint
+        run: |
+          echo "Resultado lint realizado con hadolint: ${{ env.HADOLINT_RESULTS }}"
+          
       - name: Construir imagen docker a partir de dockerfile
         run:
           docker build . -t ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_51
@@ -37,6 +47,16 @@ jobs:
         run:
           docker run -d --name ${{env.Docker_ContainerName}} ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_51
           
-      - name: Start the service and perform healthcheck
-        run: |
+      - name: Test de la aplicacion dockerizada y ejecutada en el contenedor
+        run:
           docker run --network container:${{env.Docker_ContainerName}} appropriate/curl --retry 10 --retry-connrefused http://localhost:3456/
+
+      - name: Login en dockerhub
+        uses: docker/login-action@v3
+        with:
+          username: ${{env.DockerHub_UserName}}
+          password: ${{env.DockerHub_Password}}
+          
+      - name: Push en dockerhub con la imagen docker creada anteriormente
+        run:
+          docker push ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_51
