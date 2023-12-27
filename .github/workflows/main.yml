@@ -28,7 +28,7 @@ jobs:
       - name: Checkout codigo del repositorio
         uses: actions/checkout@v3
 
-      - name: Aplicar lint sobre el archivo dockerfile usando hadolint
+      - name: Ejecutar lint sobre el archivo dockerfile usando hadolint
         uses: hadolint/hadolint-action@v3.0.0
         with:
           dockerfile: ./Docker/Dockerfile
@@ -43,7 +43,7 @@ jobs:
           docker build . -t ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_51
           -f Docker/Dockerfile
           
-      - name: Run Trivy vulnerability scanner
+      - name: Detecta vulnerabilidades de la imagen creada anteriormente usando Trivy
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: '${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_51'
@@ -53,7 +53,7 @@ jobs:
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
           
-      - name: Ejecutar contenedor con la imagen docker creada anteriormente
+      - name: Ejecutar contenedor con la imagen creada anteriormente
         run:
           docker run -d --name ${{env.Docker_ContainerName}} ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_51
           
