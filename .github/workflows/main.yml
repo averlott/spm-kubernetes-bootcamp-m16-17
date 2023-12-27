@@ -21,6 +21,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
+      - name: Inicio
+        run: |
+          docker images -a
+          docker ps -a
+          
       - name: Concatena variables para reutilizar las existentes y crear otras
         run: |
           echo "Docker_ContainerName=${{env.DockerHub_RepoName}}_${{env.Docker_ContainerTag}}" >> $GITHUB_ENV
@@ -70,3 +75,8 @@ jobs:
       #- name: Push en dockerhub con la imagen docker creada anteriormente
       #  run:
       #    docker push ${{env.DockerHub_UserName}}/${{env.DockerHub_RepoName}}:${{env.DockerHub_TagName}}_51
+      
+      - name: Fin
+        run: |
+          docker images -a
+          docker ps -a
