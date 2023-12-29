@@ -1,4 +1,4 @@
-name: wf-test1
+name: wf-bootcamp-m16-17
 on:
   workflow_dispatch:
   push:
@@ -17,7 +17,7 @@ env:
   Application_Expose_Port: 8001
 
 jobs:
-  test1-job:
+  bootcamp-m16-17-job:
     runs-on: ubuntu-latest
     steps:
     
