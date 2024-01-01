@@ -29,8 +29,8 @@ nuestra aplicación:
    subir dicha imagen al repositorio de imagenes en "dockerhub".
 
 ### Kubernetes ###
-Dentro de esta carpeta encontraremos los archivos y/o manifiestos de los recursos de "Kubernetes" definidos para desplegar
-nuestra aplicacion en un cluster de Kubernetes ("minikube" en nuestro caso):
+Dentro de esta carpeta encontraremos los archivos y/o manifiestos de los recursos de "Kubernetes" definidos para desplegar nuestra 
+aplicacion en un cluster de "Kubernetes" ("minikube" en nuestro caso):
 1. Si lo hacemos de forma manual habrá que ejecutar el comando "kubectl apply -f <manifiesto>" con cada uno de los recursos
    creados previamente o bien podemos ejecutar el mismo comando pero indicando un directorio en particular el cual se encuentren
    todos los manifiestos de los recursos a crear.
@@ -38,10 +38,8 @@ nuestra aplicacion en un cluster de Kubernetes ("minikube" en nuestro caso):
    mencionado anteriormente.
 
 ### Helm/spm-openjdk ###
-Dentro de esta carpeta encontraremos los archivos y/o manifiestos de los recursos de "Helm" definidos para desplegar
-nuestra aplicacion en un cluster de Kubernetes ("minikube" en nuestro caso):
-1. Si lo hacemos de forma manual habrá que ejecutar el comando "helm install <nombre_aplicacion> <directorio_helm>" con cada uno de los recursos
-   creados previamente o bien podemos ejecutar el mismo comando pero indicando un directorio en particular el cual se encuentren
-   todos los manifiestos de los recursos a crear.
+Dentro de esta carpeta encontraremos los archivos y/o manifiestos de los recursos de "Helm" definidos para desplegar nuestra 
+aplicacion en un cluster de "Kubernetes" ("minikube" en nuestro caso):
+1. Si lo hacemos de forma manual habrá que ejecutar el comando "helm install <nombre_aplicacion> <directorio_helm>".
 2. Si lo hacemos de forma automática podemos utilizar una herramienta denominada "ArgoCD" que nos facilitará realizar lo
    mencionado anteriormente.
